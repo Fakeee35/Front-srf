@@ -19,7 +19,7 @@ import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 
 // Connect to MongoDB
-mongoose.connect("mongodb+srv://Srf44334:1233@cluster0.gzdgh6a.mongodb.net/srf-backup", {
+mongoose.connect("mongodb+srv://Srf44334:srf44334@cluster0.gzdgh6a.mongodb.net/srf-backup", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => console.log("✅ MongoDB connected for periodic backup"))
