@@ -25,6 +25,17 @@ mongoose.connect("mongodb+srv://Srf44334:srf44334@cluster0.gzdgh6a.mongodb.net/s
 }).then(() => console.log("✅ MongoDB connected for periodic backup"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
+function readJSON(filePath) {
+  try {
+    if (!fs.existsSync(filePath)) return [];
+    const content = fs.readFileSync(filePath, "utf-8");
+    return JSON.parse(content || "[]");
+  } catch (err) {
+    console.error(`Error reading ${filePath}:`, err);
+    return [];
+  }
+}
+
 // Define schemas
 const donationSchema = new mongoose.Schema({
   name: String, email: String, phone: String,
