@@ -223,10 +223,10 @@ app.post("/admin/login", (req, res) => {
 });
 
 app.get("/admin/data", (req, res) => {
-  const donations = safeReadJSON(DONATIONS_FILE, []);
-  const volunteer = safeReadJSON(VOLUNTEER_FILE, []);
-  const newsletter = safeReadJSON(NEWSLETTER_FILE, []);
-  const contact = safeReadJSON(CONTACT_FILE, []);
+  const donationsFile = DONATIONS_FILE;
+const volunteerFile = VOLUNTEER_FILE;
+const contactFile = CONTACT_FILE;
+const newsletterFile = NEWSLETTER_FILE;
   res.json({ donations, volunteer, newsletter, contact });
 });
 
