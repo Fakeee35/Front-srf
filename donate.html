@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Tracker</title>
+    <style>
+        :root {
+            --primary-color: #6A5ACD; /* Royal Purple */
+            --secondary-color: #FFD700; /* Gold */
+            --light-color: #f8f9fa;
+            --dark-color: #1B1B2F;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-color), #16213E);
+            color: var(--light-color);
+            padding: 20px;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--light-color);
+            color: var(--dark-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .counter-display {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+
+        .dialog.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            color: #777;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #333;
+            background-color: #f0f0f0;
+        }
+
+        .dialog-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .dialog.active .dialog-content {
+            transform: translateY(0);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a4ac4;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .success-message {
+            color: #4caf50;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .success-message.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Donation Tracker</h1>
+            <p>Make your donation and help our cause!</p>
+        </header>
+
+        <div class="counter-display">
+            Donations Received: <span id="form-counter">0</span>
+        </div>
+
+        <button class="open-dialog-btn" id="open-dialog">Donate Now</button>
+
+        <div id="success-message" class="success-message">
+            Thank you for your donation!
+        </div>
+    </div>
+
+    <!-- Donation Dialog -->
+    <div class="dialog" id="form-dialog">
+        <div class="dialog-content">
+            <button class="close-btn" id="close-dialog">×</button>
+            <h2 style="margin-bottom: 20px; color: var(--primary-color);">Make a Donation</h2>
+            <form id="submission-form">
+                <div class="form-group">
+                    <label for="name">Donor Name*</label>
+                    <input type="text" id="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone* (+91 WhatsApp Number)</label>
+                    <input type="tel" id="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="parcel-name">Name of Parcel*</label>
+                    <input type="text" id="parcel-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="parcel-count">Count</label>
+                    <input type="number" id="parcel-count" min="1" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="total-amount">Total Amount (₹)</label>
+                    <input type="number" id="total-amount" readonly value="75">
+                </div>
+
+                <div class="action-buttons">
+                    <button type="submit">DONATE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const $ = (id) => document.getElementById(id);
+
+            const counterEl = $('form-counter');
+            const openDialogBtn = $('open-dialog');
+            const dialog = $('form-dialog');
+            const closeBtn = $('close-dialog');
+            const form = $('submission-form');
+            const successMsg = $('success-message');
+
+            const parcelCountEl = $('parcel-count');
+            const totalAmountEl = $('total-amount');
+            const parcelNameEl = $('parcel-name');
+
+            // Load Donation Count
+            async function loadDonationCount() {
+                try {
+                    const res = await fetch('/api/donate/count');
+                    const data = await res.json();
+                    counterEl.textContent = data.count ?? 0;
+                } catch (err) {
+                    console.error('Failed to fetch donation count:', err);
+                    counterEl.textContent = '0';
+                }
+            }
+            loadDonationCount();
+
+            // Open Dialog
+            openDialogBtn.addEventListener('click', () => dialog.classList.add('active'));
+
+            // Close Dialog
+            closeBtn.addEventListener('click', () => {
+                dialog.classList.remove('active');
+                form.reset();
+                totalAmountEl.value = 75;
+                parcelCountEl.value = 1;
+            });
+
+            // Recalculate Total Amount
+            parcelCountEl.addEventListener('input', () => {
+                const count = parseInt(parcelCountEl.value) || 0;
+                totalAmountEl.value = count * 75;
+            });
+
+            // Submit Donation
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = $('name').value.trim();
+                const email = $('email').value.trim();
+                const phone = $('phone').value.trim();
+                const parcelName = parcelNameEl.value.trim();
+                const parcelCount = parseInt(parcelCountEl.value) || 1;
+                const totalAmount = parseInt(totalAmountEl.value) || parcelCount * 75;
+
+                if (!name || !email || !phone || !parcelName) {
+                    alert('Name, email, phone, and parcel name are required.');
+                    return;
+                }
+
+                const payload = { name, email, phone, parcelName, parcelCount, totalAmount };
+
+                try {
+                    const res = await fetch('/api/donate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        counterEl.textContent = data.count ?? parseInt(counterEl.textContent) + 1;
+                        dialog.classList.remove('active');
+                        form.reset();
+                        totalAmountEl.value = 75;
+                        parcelCountEl.value = 1;
+                        successMsg.classList.add('show');
+                        setTimeout(() => successMsg.classList.remove('show'), 3000);
+                    } else {
+                        alert(data.message || 'Failed to submit donation.');
+                    }
+                } catch (err) {
+                    console.error('Donation submission failed:', err);
+                    alert('Network error submitting donation.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

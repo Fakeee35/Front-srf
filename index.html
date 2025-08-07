@@ -1,313 +1,465 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>Admin Dashboard - Sagar Ratan Foundation</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Tailwind --><script src="https://cdn.tailwindcss.com"></script><script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          primary: '#6A5ACD',  /* Royal Purple */
-          gold: '#FFD700',     /* Gold */
-          darkbg: '#1B1B2F',
-          darkbg2: '#16213E'
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sagar Ratan Foundation</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6A5ACD',  /* Royal Purple */
+            secondary: '#FFD700', /* Gold */
+            deepnavy: '#1B1B2F',
+            deepnavy2: '#16213E',
+            offwhite: '#F7F7F7'
+          }
         }
       }
     }
-  }
-</script><!-- Font Awesome --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /><style>
-  html,body{max-width:100%;overflow-x:hidden;}
-  body{background:#1B1B2F;color:#e5e7eb;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
-  .band-dark{background:linear-gradient(135deg,#1B1B2F,#16213E);}
-  .card-bg{background:rgba(255,255,255,0.05);}
-  .table-wrap{overflow-x:auto;}
-  table{width:100%;border-collapse:collapse;}
-  th,td{white-space:nowrap;padding:.5rem .75rem;font-size:.875rem;}
-  th{text-align:left;font-weight:600;color:#FFD700;border-bottom:1px solid rgba(255,255,255,.15);}
-  td{border-bottom:1px solid rgba(255,255,255,.05);}
-  .scroll-slim::-webkit-scrollbar{height:6px;}
-  .scroll-slim::-webkit-scrollbar-thumb{background:#6A5ACD;border-radius:3px;}
-  .hidden{display:none !important;}
-</style></head>
-<body><!-- Navbar --><nav class="band-dark text-white p-4 shadow-md border-t-4" style="border-color:#6A5ACD;">
-  <div class="container mx-auto flex justify-between items-center px-2 sm:px-4">
-    <a href="index.html" class="text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-white to-[#FFD700] drop-shadow-md">
-      Sagar Ratan Foundation
-    </a>
-    <ul class="hidden sm:flex gap-4 text-sm text-[#F7F7F7]">
-      <li><a href="index.html" class="hover:text-[#FFD700]">Home</a></li>
-      <li><a href="about.html" class="hover:text-[#FFD700]">About</a></li>
-      <li><a href="donate.html" class="hover:text-[#FFD700]">Donate</a></li>
-      <li><a href="volunteer.html" class="hover:text-[#FFD700]">Volunteer</a></li>
-      <li><a href="contact.html" class="hover:text-[#FFD700]">Contact</a></li>
-      <li><span class="text-[#FFD700] font-bold">Admin</span></li>
+  </script>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+  <style>
+    html,body {
+      max-width:100%;
+      overflow-x:hidden; /* fixes blank right-side space */
+    }
+    body {
+      padding-top: 80px; /* space for fixed navbar */
+    }
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(27,27,47,0.8) 0%, rgba(22,33,62,0.85) 100%);
+    }
+    .band-dark {
+      background: linear-gradient(135deg, #1B1B2F 0%, #16213E 100%);
+    }
+    /* Gallery wrapper background to prevent white flashes */
+    .carousel-container {
+      background: linear-gradient(135deg, #1B1B2F 0%, #16213E 100%);
+    }
+    /* Force full-height gallery images */
+    .carousel-img {
+      height: 400px;
+      object-fit: cover;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-deepnavy text-gray-200 font-sans">
+
+  <!-- Floating Donate Button -->
+  <a href="donate.html" class="fixed right-4 bottom-4 bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg hover:bg-red-700 transition">
+    Donate Us
+  </a>
+
+  <!-- Navbar (fixed) -->
+  <nav class="band-dark text-white p-4 shadow-md border-t-4 fixed top-0 left-0 w-full z-50" style="border-color:#6A5ACD;">
+    <div class="container mx-auto flex justify-between items-center px-2 sm:px-4">
+      <!-- Logo / Title -->
+      <div class="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-white to-[#FFD700] drop-shadow-md">
+        Sagar Ratan Foundation
+      </div>
+
+      <!-- Hamburger (mobile) -->
+      <button id="menu-btn" class="sm:hidden text-secondary text-2xl focus:outline-none" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Desktop Menu -->
+      <ul id="menu" class="hidden sm:flex gap-4 text-sm text-[#F7F7F7]">
+        <li><a href="#projects" class="hover:text-[#FFD700]">Projects</a></li>
+        <li><a href="#impact" class="hover:text-[#FFD700]">Impact</a></li>
+        <li><a href="#donate" class="text-[#FFD700] font-bold">Donate</a></li>
+        <li><a href="contact.html" class="hover:text-[#FFD700]">Contact</a></li>
+        <li><a href="volunteer.html" class="hover:text-[#FFD700]">Volunteer</a></li>
+        <li><a href="admin.html" class="hover:text-[#FFD700]">Admin</a></li>
+        <li><a href="about.html" class="hover:text-[#FFD700]">About</a></li>
+      </ul>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <ul id="mobile-menu" class="sm:hidden hidden flex-col gap-2 mt-2 px-4 pb-3 text-sm text-[#F7F7F7]">
+      <li><a href="#projects" class="block py-1 hover:text-[#FFD700]">Projects</a></li>
+      <li><a href="#impact" class="block py-1 hover:text-[#FFD700]">Impact</a></li>
+      <li><a href="#donate" class="block py-1 text-[#FFD700] font-bold">Donate</a></li>
+      <li><a href="contact.html" class="block py-1 hover:text-[#FFD700]">Contact</a></li>
+      <li><a href="volunteer.html" class="block py-1 hover:text-[#FFD700]">Volunteer</a></li>
+      <li><a href="admin.html" class="block py-1 hover:text-[#FFD700]">Admin</a></li>
+      <li><a href="about.html" class="block py-1 hover:text-[#FFD700]">About</a></li>
     </ul>
-    <button id="menu-btn" class="sm:hidden text-gold text-2xl focus:outline-none" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
-  <ul id="mobile-menu" class="sm:hidden hidden flex-col gap-2 mt-2 px-4 pb-3 text-sm text-[#F7F7F7]">
-    <li><a href="index.html" class="block py-1 hover:text-[#FFD700]">Home</a></li>
-    <li><a href="about.html" class="block py-1 hover:text-[#FFD700]">About</a></li>
-    <li><a href="donate.html" class="block py-1 hover:text-[#FFD700]">Donate</a></li>
-    <li><a href="volunteer.html" class="block py-1 hover:text-[#FFD700]">Volunteer</a></li>
-    <li><a href="contact.html" class="block py-1 hover:text-[#FFD700]">Contact</a></li>
-    <li><span class="block py-1 text-[#FFD700] font-bold">Admin</span></li>
-  </ul>
-</nav><!-- Login Section --><section id="login-section" class="min-h-[60vh] flex items-center justify-center p-4">
-  <div class="max-w-sm w-full card-bg p-6 rounded-lg shadow-lg border-t-4" style="border-color:#FFD700;">
-    <h2 class="text-2xl font-bold text-center text-gold mb-4">Admin Login</h2>
-    <label class="block text-sm mb-1" for="admin-id">Admin ID</label>
-    <input type="text" id="admin-id" class="w-full mb-3 px-3 py-2 rounded bg-white/10 border border-white/20 focus:bg-white/20 focus:outline-none" placeholder="Enter Admin ID" />
-    <label class="block text-sm mb-1" for="admin-pass">Password</label>
-    <input type="password" id="admin-pass" class="w-full mb-4 px-3 py-2 rounded bg-white/10 border border-white/20 focus:bg-white/20 focus:outline-none" placeholder="Enter Password" />
-    <button id="login-btn" class="w-full bg-gold text-darkbg font-bold py-2 rounded hover:bg-yellow-300 transition">Login</button>
-    <p id="login-msg" class="mt-2 text-center text-sm text-red-400"></p>
+  </nav>
+
+  <!-- Hero Section -->
+  <section
+    class="relative h-[70vh] flex flex-col items-center justify-center text-center bg-cover bg-center"
+    style="background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1600&q=80');">
+    <div class="hero-overlay absolute inset-0"></div>
+    <div class="relative z-10 text-white p-6 flex flex-col items-center gap-6" data-aos="fade-right">
+      <h1 class="text-4xl sm:text-5xl font-bold mb-4">Together We Create Change</h1>
+      <p class="text-lg max-w-md mx-auto">Empowering lives through health, education, and support programs.</p>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section id="core-values" class="py-10 band-dark">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-secondary mb-4" data-aos="fade-left">Our Core Values</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="bg-white/10 p-6 rounded-lg shadow-md" data-aos="fade-right">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Compassion</h3>
+          <p class="text-gray-200">We believe in caring for the well-being of all individuals.</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-lg shadow-md" data-aos="fade-up">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Integrity</h3>
+          <p class="text-gray-200">We act with honesty, transparency, and fairness.</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-lg shadow-md" data-aos="fade-left">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Inclusivity</h3>
+          <p class="text-gray-200">We embrace diversity and foster a sense of belonging.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <section id="impact" class="py-10 band-dark text-white" data-aos="fade-right">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-secondary mb-6">Our Impact</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="bg-white/10 rounded shadow p-4" data-aos="fade-right">
+          <p class="text-4xl font-bold text-secondary">5,000+</p>
+          <p class="text-gray-200">Meals Served</p>
+        </div>
+        <div class="bg-white/10 rounded shadow p-4" data-aos="fade-up">
+          <p class="text-4xl font-bold text-secondary">1,500+</p>
+          <p class="text-gray-200">Medical Checkups</p>
+        </div>
+        <div class="bg-white/10 rounded shadow p-4" data-aos="fade-down">
+          <p class="text-4xl font-bold text-secondary">100+</p>
+          <p class="text-gray-200">Volunteers</p>
+        </div>
+        <div class="bg-white/10 rounded shadow p-4" data-aos="fade-left">
+          <p class="text-4xl font-bold text-secondary">20+</p>
+          <p class="text-gray-200">Communities Reached</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-10 band-dark">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-secondary mb-6" data-aos="fade-right">Our Projects</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white/10 rounded shadow hover:shadow-lg p-4" data-aos="fade-right">
+          <img src="https://images.unsplash.com/photo-1606326608697-6e0efc818109?auto=format&fit=crop&w=800&q=80" class="rounded mb-3 w-full h-48 object-cover" alt="Food Drive"/>
+          <h3 class="text-lg font-bold mb-2">Food Donation Drive</h3>
+          <p class="text-sm text-gray-200">Distributed 5,000+ meals to flood-affected families.</p>
+        </div>
+        <div class="bg-white/10 rounded shadow hover:shadow-lg p-4" data-aos="fade-up">
+          <img src="https://images.unsplash.com/photo-1559027615-ce3d3aa3804f?auto=format&fit=crop&w=800&q=80" class="rounded mb-3 w-full h-48 object-cover" alt="Health Camp"/>
+          <h3 class="text-lg font-bold mb-2">Health Checkup Camps</h3>
+          <p class="text-sm text-gray-200">1,500+ people received free medical screening &amp; medicines.</p>
+        </div>
+        <div class="bg-white/10 rounded shadow hover:shadow-lg p-4" data-aos="fade-left">
+          <img src="https://images.unsplash.com/photo-1509822929063-4f5e5a6b0b1b?auto=format&fit=crop&w=800&q=80" class="rounded mb-3 w-full h-48 object-cover" alt="Education Support"/>
+          <h3 class="text-lg font-bold mb-2">Education Support</h3>
+          <p class="text-sm text-gray-200">Scholarships &amp; learning kits for underprivileged children.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geriatric Care -->
+  <section id="geriatric-care" class="py-10 band-dark text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-secondary mb-6" data-aos="fade-right">Our Geriatric Care Services</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white/10 p-6 rounded-lg shadow-md" data-aos="fade-right">
+          <img 
+            src="https://images.unsplash.com/photo-1599488615731-12b3eaf2f25a?auto=format&fit=crop&w=800&q=80"
+            class="rounded mb-4 w-full h-48 object-cover" alt="Home Care Assistance"/>
+          <h3 class="text-xl font-semibold text-secondary mb-2">Home Care Assistance</h3>
+          <p class="text-gray-200">Daily living help, companionship &amp; medication support for elders at home.</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-lg shadow-md" data-aos="fade-up">
+          <img 
+            src="https://images.unsplash.com/photo-1580281657527-47f249e8f0a5?auto=format&fit=crop&w=800&q=80"
+            class="rounded mb-4 w-full h-48 object-cover" alt="Medical Care"/>
+          <h3 class="text-xl font-semibold text-secondary mb-2">Medical Care</h3>
+          <p class="text-gray-200">Regular health checkups, chronic care &amp; elder-friendly medical support.</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-lg shadow-md" data-aos="fade-left">
+          <img 
+            src="https://images.unsplash.com/photo-1505672678657-cc7037095e2c?auto=format&fit=crop&w=800&q=80"
+            class="rounded mb-4 w-full h-48 object-cover" alt="Telemedicine"/>
+          <h3 class="text-xl font-semibold text-secondary mb-2">Telemedicine Services</h3>
+          <p class="text-gray-200">Remote doctor consultations &amp; monitoring without the need to travel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="py-10 carousel-container" data-aos="fade-up">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-secondary mb-6">Gallery</h2>
+      <div class="relative w-full overflow-hidden rounded-lg shadow-lg h-[400px]">
+        <div id="carousel" class="flex transition-transform duration-700 ease-in-out">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1600&q=80" class="w-full flex-shrink-0 carousel-img" alt="Gallery 1"/>
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1600&q=80" class="w-full flex-shrink-0 carousel-img" alt="Gallery 2"/>
+          <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1600&q=80" class="w-full flex-shrink-0 carousel-img" alt="Gallery 3"/>
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1600&q=80" class="w-full flex-shrink-0 carousel-img" alt="Gallery 4"/>
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1600&q=80" class="w-full flex-shrink-0 carousel-img" alt="Gallery 5"/>
+        </div>
+        <button id="prev" class="absolute top-1/2 left-3 -translate-y-1/2 bg-black/40 text-white px-3 py-2 rounded-full hover:bg-black/60 transition">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="next" class="absolute top-1/2 right-3 -translate-y-1/2 bg-black/40 text-white px-3 py-2 rounded-full hover:bg-black/60 transition">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donate -->
+<section id="donate" class="py-10 band-dark text-white" data-aos="fade-up">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold text-secondary mb-4">Support Our Mission</h2>
+    <p class="text-gray-200 max-w-2xl mx-auto mb-6">
+      Every contribution helps us provide food, health checkups, and education to those in need.
+    </p>
+    <div class="mb-2 bg-white/10 rounded-lg p-6 shadow-md max-w-md mx-auto">
+      <p class="text-xl font-semibold text-secondary">
+  Total Donations: <span id="donation-counter">0</span>
+      </p>
+      <a href="donate.html"
+        class="mt-4 inline-block bg-secondary text-deepnavy font-bold px-4 py-2 rounded shadow hover:bg-yellow-300 transition">
+        Contribute Now
+      </a>
+    </div>
   </div>
 </section>
-<!-- Footer -->
-<footer class="bg-gray-900 text-white py-10 mt-20">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-wrap lg:flex-nowrap -mx-4 justify-between">
-      <!-- Foundation -->
-      <div class="w-full lg:w-1/4 px-4 mb-8 lg:mb-0">
-        <h3 class="text-xl font-bold text-gold mb-4">Sagar Ratan Foundation</h3>
-        <p class="text-sm mb-4">Creating hope and opportunity through community-led action across India.</p>
-        <div class="flex space-x-3">
-          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-gray-800 transition"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-gray-800 transition"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-gray-800 transition"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-gray-800 transition"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-      <!-- Quick Links + Support -->
-      <div class="w-full lg:w-2/4 px-4 mb-8 lg:mb-0">
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-lg font-bold text-gold mb-4">Quick Links</h3>
-            <ul class="space-y-2 text-sm">
-              <li><a href="index.html" class="hover:text-gold">Home</a></li>
-              <li><a href="about.html" class="hover:text-gold">About Us</a></li>
-              <li><a href="index.html#projects" class="hover:text-gold">Our Programs</a></li>
-              <li><a href="donate.html" class="hover:text-gold">Donate</a></li>
-              <li><a href="volunteer.html" class="hover:text-gold">Volunteer</a></li>
-              <li><a href="contact.html" class="hover:text-gold">Contact Us</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-gold mb-4">Support</h3>
-            <ul class="space-y-2 text-sm">
-              <li><a href="#" onclick="openDialog('termsDialog')" class="hover:text-gold">Terms of Service</a></li>
-              <li><a href="#" onclick="openDialog('privacyDialog')" class="hover:text-gold">Privacy Policy</a></li>
-            </ul>
+
+  <!-- Want to Make a Difference -->
+  <section class="band-dark text-white text-center py-8" data-aos="fade-left">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-3">Want to Make a Difference?</h2>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="volunteer.html" class="bg-secondary text-deepnavy px-8 py-3 rounded-lg shadow-lg text-lg font-semibold hover:bg-yellow-300 transition-all">
+        Join Us as Volunteer
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-10">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap lg:flex-nowrap -mx-4 justify-between">
+        
+        <!-- Foundation -->
+        <div class="w-full lg:w-1/4 px-4 mb-8 lg:mb-0">
+          <h3 class="text-xl font-bold text-secondary mb-4">Sagar Ratan Foundation</h3>
+          <p class="text-sm mb-4">Creating hope and opportunity through community-led action across India.</p>
+          <div class="flex space-x-3">
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-gray-800 transition"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-gray-800 transition"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-gray-800 transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-gray-800 transition"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
+
+        <!-- Quick Links + Support -->
+        <div class="w-full lg:w-2/4 px-4 mb-8 lg:mb-0">
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-lg font-bold text-secondary mb-4">Quick Links</h3>
+              <ul class="space-y-2 text-sm">
+                <li><a href="index.html" class="hover:text-secondary">Home</a></li>
+                <li><a href="about.html" class="hover:text-secondary">About Us</a></li>
+                <li><a href="#projects" class="hover:text-secondary">Our Programs</a></li>
+                <li><a href="donate.html" class="hover:text-secondary">Donate</a></li>
+                <li><a href="volunteer.html" class="hover:text-secondary">Volunteer</a></li>
+                <li><a href="contact.html" class="hover:text-secondary">Contact Us</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-secondary mb-4">Support</h3>
+              <ul class="space-y-2 text-sm">
+                <li><a href="#" onclick="openDialog('termsDialog')" class="hover:text-secondary">Terms of Service</a></li>
+                <li><a href="#" onclick="openDialog('privacyDialog')" class="hover:text-secondary">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="w-full lg:w-1/4 px-4 mb-0">
+          <h3 class="text-lg font-bold text-secondary mb-4">Newsletter</h3>
+          <form id="newsletterForm" class="space-y-2">
+            <input type="email" id="nlemail" required placeholder="Your Email Address" class="w-full px-3 py-2 rounded bg-white/10 border border-white/20 text-sm focus:bg-white/20 focus:outline-none">
+            <button type="submit" class="w-full bg-secondary text-deepnavy font-semibold py-2 rounded hover:bg-yellow-400">Subscribe</button>
+          </form>
+          <p id="nlmsg" class="text-sm mt-2"></p>
+        </div>
       </div>
-      <!-- Newsletter -->
-      <div class="w-full lg:w-1/4 px-4 mb-0">
-        <h3 class="text-lg font-bold text-gold mb-4">Newsletter</h3>
-        <form id="newsletterForm" class="space-y-2">
-          <input type="email" id="nlemail" required placeholder="Your Email Address" class="w-full px-3 py-2 rounded bg-white/10 border border-white/20 text-sm focus:bg-white/20 focus:outline-none">
-          <button type="submit" class="w-full bg-gold text-darkbg font-semibold py-2 rounded hover:bg-yellow-400">Subscribe</button>
-        </form>
-        <p id="nlmsg" class="text-sm mt-2"></p>
+
+      <div class="text-center text-xs mt-6 border-t border-white/10 pt-4">
+        © 2025 Sagar Ratan Foundation. All rights reserved.
       </div>
     </div>
-    <div class="text-center text-xs mt-6 border-t border-white/10 pt-4">
-      © 2025 Sagar Ratan Foundation. All rights reserved.
+  </footer>
+
+  <!-- Dialog Boxes -->
+  <div id="termsDialog" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+    <div class="bg-deepnavy text-white max-w-lg w-11/12 p-6 rounded-lg shadow-lg border-t-4 border-secondary relative animate-fadeIn">
+      <h2 class="text-2xl font-bold text-secondary mb-3">Terms of Service</h2>
+      <p class="text-sm text-gray-300 mb-4">
+        By using the Sagar Ratan Foundation website, you agree to our commitment to protect your data, follow ethical practices, and provide reliable community services. We reserve the right to update these terms when necessary.
+      </p>
+      <button onclick="closeDialog('termsDialog')" class="bg-secondary text-deepnavy font-semibold px-4 py-2 rounded hover:bg-yellow-400">Close</button>
     </div>
   </div>
-</footer>
 
-<!-- Dialog Boxes -->
-<div id="termsDialog" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
-  <div class="bg-darkbg text-white max-w-lg w-11/12 p-6 rounded-lg shadow-lg border-t-4 border-gold relative">
-    <h2 class="text-2xl font-bold text-gold mb-3">Terms of Service</h2>
-    <p class="text-sm text-gray-300 mb-4">By using the Sagar Ratan Foundation website, you agree to responsible use of information...</p>
-    <button onclick="closeDialog('termsDialog')" class="bg-gold text-darkbg font-semibold px-4 py-2 rounded hover:bg-yellow-400">Close</button>
+  <div id="privacyDialog" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+    <div class="bg-deepnavy text-white max-w-lg w-11/12 p-6 rounded-lg shadow-lg border-t-4 border-secondary relative animate-fadeIn">
+      <h2 class="text-2xl font-bold text-secondary mb-3">Privacy Policy</h2>
+      <p class="text-sm text-gray-300 mb-4">
+        We value your privacy. Information you share with Sagar Ratan Foundation is used solely to improve our services and communication. We never share personal data without your consent.
+      </p>
+      <button onclick="closeDialog('privacyDialog')" class="bg-secondary text-deepnavy font-semibold px-4 py-2 rounded hover:bg-yellow-400">Close</button>
+    </div>
   </div>
-</div>
 
-<div id="privacyDialog" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
-  <div class="bg-darkbg text-white max-w-lg w-11/12 p-6 rounded-lg shadow-lg border-t-4 border-gold relative">
-    <h2 class="text-2xl font-bold text-gold mb-3">Privacy Policy</h2>
-    <p class="text-sm text-gray-300 mb-4">We collect only the information you submit (donations, forms, subscriptions)...</p>
-    <button onclick="closeDialog('privacyDialog')" class="bg-gold text-darkbg font-semibold px-4 py-2 rounded hover:bg-yellow-400">Close</button>
-  </div>
-</div>
-
-<!-- Admin JS (fully working) -->
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (menuBtn) {
-    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-  }
+  AOS.init({ duration: 1000, once: true });
 
-  function openDialog(id) {
+  document.addEventListener('DOMContentLoaded', () => {
+    /* Mobile Nav Toggle */
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Donation Counter
+    const dc = document.getElementById('donation-counter');
+    if (dc) dc.textContent = localStorage.getItem('formCounter') || 0;
+
+    // Newsletter form
+    const nlForm = document.getElementById('newsletterForm');
+    const nlmsg = document.getElementById('nlmsg');
+    if (nlForm) {
+      nlForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('nlemail').value;
+        try {
+          const res = await fetch('/api/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+          nlmsg.textContent = res.ok ? "Subscribed successfully!" : "Error subscribing.";
+          if(res.ok) nlForm.reset();
+        } catch (err) {
+          nlmsg.textContent = "Network error.";
+        }
+      });
+    }
+
+    /* Gallery Auto-Slide + Arrows */
+    const carousel = document.getElementById('carousel');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    if (carousel && prevBtn && nextBtn) {
+      const totalSlides = carousel.children.length;
+      let slideIndex = 0;
+      let galleryTimer = setInterval(nextSlide, 4000);
+
+      function updateSlide() {
+        carousel.style.transform = `translateX(-${slideIndex * 100}%)`;
+      }
+      function nextSlide() {
+        slideIndex = (slideIndex + 1) % totalSlides;
+        updateSlide();
+      }
+      function prevSlide() {
+        slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+        updateSlide();
+      }
+      function resetGalleryTimer() {
+        clearInterval(galleryTimer);
+        galleryTimer = setInterval(nextSlide, 4000);
+      }
+      nextBtn.addEventListener('click', () => { nextSlide(); resetGalleryTimer(); });
+      prevBtn.addEventListener('click', () => { prevSlide(); resetGalleryTimer(); });
+    }
+  });
+
+  /* Dialog Controls (Global) */
+  window.openDialog = function(id) {
     const el = document.getElementById(id);
-    if (!el) return;
     el.classList.remove('hidden');
     el.classList.add('flex');
   }
-  window.openDialog = openDialog;
-
-  function closeDialog(id) {
+  window.closeDialog = function(id) {
     const el = document.getElementById(id);
-    if (!el) return;
     el.classList.add('hidden');
     el.classList.remove('flex');
   }
-  window.closeDialog = closeDialog;
-
-  const loginBtn = document.getElementById('login-btn');
-  const loginMsg = document.getElementById('login-msg');
-  const loginSection = document.getElementById('login-section');
-  const adminPanel = document.getElementById('admin-panel');
-
-  if (loginBtn) {
-    loginBtn.addEventListener('click', adminLogin);
-  }
-
-  async function adminLogin() {
-    const id = document.getElementById('admin-id').value;
-    const password = document.getElementById('admin-pass').value;
-
-    loginMsg.textContent = '';
-    try {
-      const res = await fetch('https://backend-rk6x.onrender.com/api/admin-login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, password })
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        loginMsg.textContent = data.message || 'Invalid credentials.';
-        return;
-      }
-
-      loginSection.classList.add('hidden');
-      adminPanel.classList.remove('hidden');
-      loadAdminData();
-    } catch (err) {
-      loginMsg.textContent = 'Login error. Please check your internet.';
-    }
-  }
-
-  async function loadAdminData() {
-    try {
-      const res = await fetch('https://backend-rk6x.onrender.com/api/admin-data');
-      const data = await res.json();
-      populateDonations(data.donations || []);
-      populateVolunteers(data.volunteers || []);
-      populateContacts(data.contacts || []);
-      populateNewsletter(data.newsletters || []);
-    } catch (err) {
-      console.error('Failed to load admin data:', err);
-    }
-  }
-
-  function fmtDate(iso) {
-    const d = new Date(iso);
-    return isNaN(d) ? iso : d.toLocaleString();
-  }
-
-  function esc(str) {
-    if (str == null) return '';
-    return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-  }
-
-  function populateDonations(rows) {
-    const tbody = document.getElementById('donationsBody');
-    tbody.innerHTML = '';
-    rows.forEach((r,i)=>{
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${i+1}</td>
-        <td>${esc(r.name)}</td>
-        <td>${esc(r.email)}</td>
-        <td>${esc(r.phone)}</td>
-        <td>${esc(r.parcelName || '')}</td>
-        <td>${esc(r.parcelCount ?? '')}</td>
-        <td>${esc(r.totalAmount ?? '')}</td>
-        <td>${esc(fmtDate(r.date))}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function populateVolunteers(rows) {
-    const tbody = document.getElementById('volunteersBody');
-    tbody.innerHTML = '';
-    rows.forEach((r,i)=>{
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${i+1}</td>
-        <td>${esc(r.name)}</td>
-        <td>${esc(r.email)}</td>
-        <td>${esc(r.phone)}</td>
-        <td>${esc(r.help || '')}</td>
-        <td>${esc(r.message || '')}</td>
-        <td>${esc(fmtDate(r.date))}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function populateContacts(rows) {
-    const tbody = document.getElementById('contactsBody');
-    tbody.innerHTML = '';
-    rows.forEach((r,i)=>{
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${i+1}</td>
-        <td>${esc(r.name)}</td>
-        <td>${esc(r.email)}</td>
-        <td>${esc(r.message)}</td>
-        <td>${esc(fmtDate(r.date))}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function populateNewsletter(rows) {
-    const tbody = document.getElementById('newsletterBody');
-    tbody.innerHTML = '';
-    rows.forEach((r,i)=>{
-      const email = typeof r === 'string' ? r : (r.email || JSON.stringify(r));
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${i+1}</td>
-        <td>${esc(email)}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  // Newsletter form
-  const nlForm = document.getElementById('newsletterForm');
-  if (nlForm) {
-    nlForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const emailInput = document.getElementById('nlemail');
-      const msg = document.getElementById('nlmsg');
-      try {
-        const res = await fetch('https://backend-rk6x.onrender.com/api/newsletter', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({ email: emailInput.value })
-        });
-        const data = await res.json();
-        msg.textContent = data.message || 'Submitted.';
-        if (res.ok) emailInput.value = '';
-      } catch (err) {
-        msg.textContent = 'Error.';
-      }
-    });
-  }
-});
 </script>
-</body>
-</html>
+  
+<script>
+  async function loadDonationCount() {
+    try {
+      const res = await fetch('/api/donations/count'); // Backend endpoint for count
+      if (res.ok) {
+        const data = await res.json();
+        document.getElementById('donation-counter').textContent = data.count || 0;
+      } else {
+        document.getElementById('donation-counter').textContent = '0';
+      }
+    } catch (error) {
+      console.error('Error loading donation count:', error);
+      document.getElementById('donation-counter').textContent = '0';
+    }
+  }
+  loadDonationCount();
+</script>
+<script>
+  // Update donation counter on homepage
+  async function updateHomeDonationCounter() {
+    try {
+      const res = await fetch('/api/donate/count');
+      const data = await res.json();
+      document.getElementById('donation-counter').textContent = data.count || 0;
+    } catch (err) {
+      console.error('Failed to fetch donation count:', err);
+    }
+  }
+  updateHomeDonationCounter();
+</script>

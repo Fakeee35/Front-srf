@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Volunteer - Sagar Ratan Foundation</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#6A5ACD',   /* Royal Purple */
+        gold: '#FFD700',      /* Gold */
+        deepnavy: '#1B1B2F',
+        deepnavy2: '#16213E',
+        offwhite: '#F7F7F7'
+      }
+    }
+  }
+}
+</script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+  html,body{max-width:100%;overflow-x:hidden;}
+  body{background:linear-gradient(135deg,#1B1B2F 0%,#16213E 100%);color:#e5e7eb;font-family:system-ui,Segoe UI,Roboto,sans-serif;padding-top:80px;}
+  .band-dark{background:linear-gradient(135deg,#1B1B2F 0%,#16213E 100%);}
+  .section-band{background:rgba(255,255,255,0.05);}
+  .role-card:hover{transform:translateY(-4px) scale(1.01);}
+  .role-card{transition:.2s;}
+  .vol-form-panel{background:rgba(255,255,255,0.08);}
+  .vol-form-panel input,
+  .vol-form-panel select,
+  .vol-form-panel textarea{
+    background:rgba(0,0,0,0.25);
+    border:1px solid rgba(255,255,255,0.15);
+    color:#fff;
+  }
+  .vol-form-panel input:focus,
+  .vol-form-panel select:focus,
+  .vol-form-panel textarea:focus{
+    outline:none;
+    border-color:#FFD700;
+    box-shadow:0 0 0 2px rgba(255,215,0,.4);
+  }
+  /* Mobile menu hidden by default */
+  #mobile-menu{transition:max-height .25s ease;max-height:0;overflow:hidden;}
+  #mobile-menu.open{max-height:400px;}
+  /* Dialog fade */
+  .dialog-box{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;}
+  .dialog-box.active{display:flex;}
+  .dialog-content{background:#1B1B2F;color:#fff;max-width:600px;width:90%;padding:1.75rem;border-radius:.75rem;border-top:4px solid #FFD700;max-height:85vh;overflow-y:auto;}
+  .dialog-content h2{color:#FFD700;font-size:1.5rem;font-weight:700;margin-bottom:.75rem;}
+  .dialog-close{margin-top:1.5rem;background:#FFD700;color:#1B1B2F;font-weight:600;padding:.5rem 1.5rem;border-radius:.375rem;}
+  /* Footer social icon circles */
+  .soc-btn{width:36px;height:36px;border-radius:9999px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:.15s;}
+  .soc-btn:hover{background:#FFD700;color:#1B1B2F;}
+</style>
+</head>
+<body>
+
+<!-- Floating Donate Button (match index) -->
+<a href="donate.html" class="fixed right-4 bottom-4 bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg hover:bg-red-700 transition z-40">
+  Donate Us
+</a>
+
+<!-- Navbar -->
+<nav class="band-dark text-white p-4 shadow-md border-t-4 fixed top-0 left-0 w-full z-50" style="border-color:#6A5ACD;">
+  <div class="container mx-auto flex justify-between items-center px-2 sm:px-4">
+    <!-- Logo / Title -->
+    <a href="index.html" class="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-white to-[#FFD700] drop-shadow-md whitespace-nowrap">
+      Sagar Ratan Foundation
+    </a>
+
+    <!-- Hamburger -->
+    <button id="menu-btn" class="sm:hidden text-gold text-2xl focus:outline-none" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Desktop Menu -->
+    <ul id="menu" class="hidden sm:flex gap-4 text-sm text-offwhite">
+      <li><a href="index.html#projects" class="hover:text-gold">Projects</a></li>
+      <li><a href="index.html#impact" class="hover:text-gold">Impact</a></li>
+      <li><a href="donate.html" class="hover:text-gold">Donate</a></li>
+      <li><a href="contact.html" class="hover:text-gold">Contact</a></li>
+      <li><a href="volunteer.html" class="text-gold font-bold">Volunteer</a></li>
+      <li><a href="admin.html" class="hover:text-gold">Admin</a></li>
+      <li><a href="about.html" class="hover:text-gold">About</a></li>
+    </ul>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <ul id="mobile-menu" class="sm:hidden flex-col gap-2 mt-2 px-4 pb-3 text-sm text-offwhite">
+    <li><a href="index.html#projects" class="block py-1 hover:text-gold">Projects</a></li>
+    <li><a href="index.html#impact" class="block py-1 hover:text-gold">Impact</a></li>
+    <li><a href="donate.html" class="block py-1 hover:text-gold">Donate</a></li>
+    <li><a href="contact.html" class="block py-1 hover:text-gold">Contact</a></li>
+    <li><a href="volunteer.html" class="block py-1 text-gold font-bold">Volunteer</a></li>
+    <li><a href="admin.html" class="block py-1 hover:text-gold">Admin</a></li>
+    <li><a href="about.html" class="block py-1 hover:text-gold">About</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="relative text-center py-20 sm:py-28 px-4">
+  <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center"></div>
+  <div class="absolute inset-0 bg-black/60"></div>
+  <div class="relative z-10 max-w-2xl mx-auto">
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 text-gold drop-shadow-lg">Become a Volunteer</h1>
+    <p class="text-lg sm:text-xl text-gray-200 max-w-xl mx-auto mb-8">
+      Your time and skills can change lives. Join our community response network.
+    </p>
+    <a href="#volunteer-form" class="inline-block bg-primary hover:bg-indigo-600 transition text-white font-semibold px-8 py-3 rounded-lg shadow-md">
+      Sign Up Now
+    </a>
+  </div>
+</section>
+
+<!-- Ways You Can Help -->
+<section id="ways" class="py-16 section-band">
+  <div class="container mx-auto px-4 max-w-6xl text-center mb-10">
+    <h2 class="text-3xl sm:text-4xl font-bold text-gold mb-4">Ways You Can Help</h2>
+    <p class="text-gray-200 max-w-2xl mx-auto">
+      Choose a role that matches your skills, schedule, or passion. Every contribution matters.
+    </p>
+  </div>
+  <div class="container mx-auto px-4 max-w-6xl grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Companion -->
+    <div class="role-card bg-white/10 rounded-lg p-6 text-center shadow-md">
+      <div class="text-4xl mb-3">👵</div>
+      <h3 class="text-xl font-semibold text-gold mb-2">Companion Volunteer</h3>
+      <p class="text-sm text-gray-200 mb-3">Visit elderly beneficiaries; read, talk, walk, share time.</p>
+      <p class="text-xs text-gray-400">~4–8 hrs / week</p>
+    </div>
+    <!-- Digital Helper -->
+    <div class="role-card bg-white/10 rounded-lg p-6 text-center shadow-md">
+      <div class="text-4xl mb-3">💻</div>
+      <h3 class="text-xl font-semibold text-gold mb-2">Digital Helper</h3>
+      <p class="text-sm text-gray-200 mb-3">Help with phones, telemedicine calls, online forms.</p>
+      <p class="text-xs text-gray-400">Flexible</p>
+    </div>
+    <!-- Activity -->
+    <div class="role-card bg-white/10 rounded-lg p-6 text-center shadow-md">
+      <div class="text-4xl mb-3">🎨</div>
+      <h3 class="text-xl font-semibold text-gold mb-2">Activity Coordinator</h3>
+      <p class="text-sm text-gray-200 mb-3">Lead crafts, music, games for children & seniors.</p>
+      <p class="text-xs text-gray-400">4–6 hrs / month</p>
+    </div>
+    <!-- Transport -->
+    <div class="role-card bg-white/10 rounded-lg p-6 text-center shadow-md">
+      <div class="text-4xl mb-3">🚗</div>
+      <h3 class="text-xl font-semibold text-gold mb-2">Transport Volunteer</h3>
+      <p class="text-sm text-gray-200 mb-3">Drive to health camps, meal distribution, field visits.</p>
+      <p class="text-xs text-gray-400">As needed</p>
+    </div>
+    <!-- Technical Support -->
+    <div class="role-card bg-white/10 rounded-lg p-6 text-center shadow-md">
+      <div class="text-4xl mb-3">🛠️</div>
+      <h3 class="text-xl font-semibold text-gold mb-2">Technical Support</h3>
+      <p class="text-sm text-gray-200 mb-3">IT setup, data tools, website, volunteer tech helpline.</p>
+      <p class="text-xs text-gray-400">Project-based</p>
+    </div>
+    <!-- Fundraising -->
+    <div class="role-card bg-white/10 rounded-lg p-6 text-center shadow-md">
+      <div class="text-4xl mb-3">💛</div>
+      <h3 class="text-xl font-semibold text-gold mb-2">Fundraising Champion</h3>
+      <p class="text-sm text-gray-200 mb-3">Organize drives, school campaigns, digital appeals.</p>
+      <p class="text-xs text-gray-400">Flexible</p>
+    </div>
+  </div>
+</section>
+
+<!-- Volunteer Signup Form -->
+<section id="volunteer-form" class="py-20">
+  <div class="container mx-auto px-4 max-w-5xl flex flex-col lg:flex-row gap-12 items-start">
+    
+    <!-- Info panel -->
+    <div class="lg:w-1/2">
+      <h2 class="text-3xl font-bold text-gold mb-4">Volunteer Registration</h2>
+      <p class="text-gray-200 mb-8">
+        Fill out the form and our coordination team will match you with a project or local chapter.
+      </p>
+      <ul class="space-y-4 text-gray-200 text-sm">
+        <li><i class="fa-solid fa-circle-check text-gold mr-2"></i> Receive orientation & updates.</li>
+        <li><i class="fa-solid fa-circle-check text-gold mr-2"></i> Flexible time commitments.</li>
+        <li><i class="fa-solid fa-circle-check text-gold mr-2"></i> Digital & on-ground roles.</li>
+        <li><i class="fa-solid fa-circle-check text-gold mr-2"></i> Certificate after 20 hours service.</li>
+      </ul>
+    </div>
+
+    <!-- Form panel -->
+    <div class="lg:w-1/2 w-full vol-form-panel rounded-lg p-8 shadow-lg">
+      <form id="volunteerForm" class="space-y-4">
+        <div>
+          <label for="vname" class="block mb-1 text-sm font-semibold">Full Name*</label>
+          <input type="text" id="vname" required class="w-full p-3 rounded text-sm" placeholder="Your Name">
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="vemail" class="block mb-1 text-sm font-semibold">Email*</label>
+            <input type="email" id="vemail" required class="w-full p-3 rounded text-sm" placeholder="you@example.com">
+          </div>
+          <div>
+            <label for="vphone" class="block mb-1 text-sm font-semibold">Phone / WhatsApp*</label>
+            <input type="tel" id="vphone" required class="w-full p-3 rounded text-sm" placeholder="+91 9XXXXXXXXX">
+          </div>
+        </div>
+        <div>
+          <label for="vhelp" class="block mb-1 text-sm font-semibold">How You Want to Help*</label>
+          <select id="vhelp" required class="w-full p-3 rounded text-sm">
+            <option value="">Select a role...</option>
+            <option>Companion Volunteer</option>
+            <option>Digital Helper</option>
+            <option>Activity Coordinator</option>
+            <option>Transport Volunteer</option>
+            <option>Technical Support</option>
+            <option>Fundraising Champion</option>
+            <option>Food Distribution</option>
+            <option>Medical Camp Support</option>
+            <option>Education Drive Mentor</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="vmessage" class="block mb-1 text-sm font-semibold">Message / Experience (optional)</label>
+          <textarea id="vmessage" rows="4" class="w-full p-3 rounded text-sm" placeholder="Tell us about yourself..."></textarea>
+        </div>
+        <button type="submit" class="w-full bg-primary hover:bg-indigo-600 transition text-white font-semibold py-3 rounded-lg">
+          Submit Application
+        </button>
+        <p id="vmsg" class="text-sm mt-2"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Mega Footer -->
+<footer class="bg-gray-900 text-white py-10">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-wrap lg:flex-nowrap -mx-4 justify-between">
+      
+      <!-- Foundation -->
+      <div class="w-full lg:w-1/4 px-4 mb-8 lg:mb-0">
+        <h3 class="text-xl font-bold text-gold mb-4">Sagar Ratan Foundation</h3>
+        <p class="text-sm mb-4">Creating hope and opportunity through community-led action across India.</p>
+        <div class="flex space-x-3">
+          <a href="#" class="soc-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="soc-btn"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="soc-btn"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="soc-btn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links + Support -->
+      <div class="w-full lg:w-2/4 px-4 mb-8 lg:mb-0">
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-bold text-gold mb-4">Quick Links</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="index.html" class="hover:text-gold">Home</a></li>
+              <li><a href="about.html" class="hover:text-gold">About Us</a></li>
+              <li><a href="index.html#projects" class="hover:text-gold">Our Programs</a></li>
+              <li><a href="donate.html" class="hover:text-gold">Donate</a></li>
+              <li><a href="volunteer.html" class="hover:text-gold">Volunteer</a></li>
+              <li><a href="contact.html" class="hover:text-gold">Contact Us</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gold mb-4">Support</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#" onclick="openDialog('termsDialog')" class="hover:text-gold">Terms of Service</a></li>
+              <li><a href="#" onclick="openDialog('privacyDialog')" class="hover:text-gold">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="w-full lg:w-1/4 px-4 mb-0">
+        <h3 class="text-lg font-bold text-gold mb-4">Newsletter</h3>
+        <form id="newsletterForm" class="space-y-2">
+          <input type="email" id="nlemail" required placeholder="Your Email Address" class="w-full px-3 py-2 rounded bg-white/10 border border-white/20 text-sm focus:bg-white/20 focus:outline-none">
+          <button type="submit" class="w-full bg-gold text-deepnavy font-semibold py-2 rounded hover:bg-yellow-400">Subscribe</button>
+        </form>
+        <p id="nlmsg" class="text-sm mt-2"></p>
+      </div>
+    </div>
+
+    <div class="text-center text-xs mt-6 border-t border-white/10 pt-4">
+      © 2025 Sagar Ratan Foundation. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- Dialogs -->
+<div id="termsDialog" class="dialog-box">
+  <div class="dialog-content text-sm leading-relaxed">
+    <h2>Terms of Service</h2>
+    <p>By using the Sagar Ratan Foundation website and participating in our programs, you agree to act respectfully toward beneficiaries, volunteers, and staff. Data you submit (forms, donations, volunteer info) may be used to coordinate programs, provide receipts, and meet legal reporting requirements. We may update these terms; continued use implies acceptance.</p>
+    <button onclick="closeDialog('termsDialog')" class="dialog-close">Close</button>
+  </div>
+</div>
+
+<div id="privacyDialog" class="dialog-box">
+  <div class="dialog-content text-sm leading-relaxed">
+    <h2>Privacy Policy</h2>
+    <p>Your information is used only to communicate with you, coordinate volunteering, manage donations, and send updates if you opt in. We do not sell or share personal data with third parties without consent, except when required by law. You can request removal of your data by contacting us.</p>
+    <button onclick="closeDialog('privacyDialog')" class="dialog-close">Close</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+/* Mobile menu toggle */
+document.getElementById('menu-btn').addEventListener('click',()=>{
+  document.getElementById('mobile-menu').classList.toggle('open');
+});
+
+/* Dialog helpers */
+function openDialog(id){const el=document.getElementById(id);if(el)el.classList.add('active');}
+function closeDialog(id){const el=document.getElementById(id);if(el)el.classList.remove('active');}
+
+/* Volunteer form submit */
+document.getElementById('volunteerForm').addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  const name = document.getElementById('vname').value.trim();
+  const email = document.getElementById('vemail').value.trim();
+  const phone = document.getElementById('vphone').value.trim();
+  const help  = document.getElementById('vhelp').value.trim();
+  const message = document.getElementById('vmessage').value.trim();
+  const msg=document.getElementById('vmsg');
+
+  if(!name || !email || !phone || !help){
+    msg.textContent="Please fill all required fields.";
+    msg.className="text-sm mt-2 text-red-400";
+    return;
+  }
+
+  const payload={name,email,phone,help,message};
+  console.log("Submitting volunteer payload:",payload); // DEBUG
+
+  try{
+    const res=await fetch(window.location.origin+'/api/volunteer',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    const r=await res.json();
+    console.log("Volunteer API response:",r); // DEBUG
+    if(res.ok){
+      msg.textContent=r.message||"Thanks for volunteering!";
+      msg.className="text-sm mt-2 text-green-400";
+      e.target.reset();
+    }else{
+      msg.textContent=r.message||"Submission failed.";
+      msg.className="text-sm mt-2 text-red-400";
+    }
+  }catch(err){
+    console.error("Volunteer API error:",err);
+    msg.textContent="Network error.";
+    msg.className="text-sm mt-2 text-red-400";
+  }
+});
+
+/* Newsletter submit */
+document.getElementById('newsletterForm').addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  const email=document.getElementById('nlemail').value.trim();
+  const msg=document.getElementById('nlmsg');
+  if(!email){msg.textContent="Enter email.";return;}
+  try{
+    const res=await fetch(window.location.origin+'/api/newsletter',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email})
+    });
+    const r=await res.json();
+    msg.textContent=r.message||"Subscribed!";
+    msg.className="text-sm mt-2 text-green-400";
+    if(res.ok)e.target.reset();
+  }catch(err){
+    msg.textContent="Error subscribing.";
+    msg.className="text-sm mt-2 text-red-400";
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "sagar-ratan-foundation",
+  "version": "1.0.0",
+  "description": "Full-stack NGO demo: Sagar Ratan Foundation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0"
+  }
+}

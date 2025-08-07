@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Sagar Ratan Foundation</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6A5ACD',   /* Royal Purple */
+            gold: '#FFD700',      /* Gold */
+            deepnavy: '#1B1B2F',
+            deepnavy2: '#16213E',
+            offwhite: '#F7F7F7'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts and Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #1B1B2F, #16213E);
+      color: #f0f0f0;
+      margin: 0;
+      padding-top: 80px; /* Fixes overlapping hero with navbar */
+    }
+    .hero {
+      background: url('https://images.unsplash.com/photo-1543422964-190635e3ed6b?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      height: 70vh;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      color: #fff;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 1rem;
+    }
+    .hero-content h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .btn-accent {
+      background: #FFD700;
+      color: #1B1B2F;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-accent:hover {
+      background: #ffed4d;
+    }
+    .btn-outline-light {
+      border: 2px solid #fff;
+      padding: 0.75rem 1.5rem;
+      color: #fff;
+      border-radius: 6px;
+      font-weight: 600;
+      margin-left: 0.5rem;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .band-dark {
+      background: linear-gradient(135deg, #1B1B2F, #16213E);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="band-dark fixed top-0 left-0 w-full z-50 text-white p-4 shadow-md border-t-4 border-primary">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-gold via-white to-gold">
+      Sagar Ratan Foundation
+    </div>
+
+    <!-- Hamburger -->
+    <button id="menu-btn" class="sm:hidden text-gold text-2xl focus:outline-none" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Desktop Menu -->
+    <ul id="menu" class="hidden sm:flex gap-4 text-sm">
+      <li><a href="index.html" class="hover:text-gold">Home</a></li>
+      <li><a href="#abouttop" class="hover:text-gold">About Us</a></li>
+      <li><a href="#focus" class="hover:text-gold">Focus Areas</a></li>
+      <li><a href="#testimonials" class="hover:text-gold">Stories</a></li>
+      <li><a href="donate.html" class="hover:text-gold">Donate</a></li>
+      <li><a href="volunteer.html" class="hover:text-gold">Volunteer</a></li>
+      <li><a href="contact.html" class="hover:text-gold">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Mobile Dropdown -->
+  <ul id="mobile-menu" class="sm:hidden hidden flex-col gap-2 mt-2 px-4 pb-3 text-sm">
+    <li><a href="index.html" class="block py-1 hover:text-gold">Home</a></li>
+    <li><a href="#abouttop" class="block py-1 hover:text-gold">About Us</a></li>
+    <li><a href="#focus" class="block py-1 hover:text-gold">Focus Areas</a></li>
+    <li><a href="#testimonials" class="block py-1 hover:text-gold">Stories</a></li>
+    <li><a href="donate.html" class="block py-1 hover:text-gold">Donate</a></li>
+    <li><a href="volunteer.html" class="block py-1 hover:text-gold">Volunteer</a></li>
+    <li><a href="contact.html" class="block py-1 hover:text-gold">Contact</a></li>
+  </ul>
+</nav>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Empowering Communities For A Brighter Future</h1>
+    <p>Sagar Ratan Foundation works across India to provide food security, primary healthcare, and education access.</p>
+   <div class="flex flex-col items-center gap-3 mt-4">
+  <a href="contact.html" class="btn-accent">Get Help Now</a>
+  <a href="donate.html" class="btn-outline-light">Support Our Mission</a>
+</div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="abouttop" class="py-10 band-dark">
+  <div class="container mx-auto text-center px-4">
+    <h2 class="text-3xl font-bold text-gold mb-4">About Sagar Ratan Foundation</h2>
+    <p class="max-w-2xl mx-auto">Founded in 2025, we are a community-focused NGO delivering relief and long-term development in education, nutrition, and health access.</p>
+  </div>
+</section>
+
+<!-- Focus Areas -->
+<section id="focus" class="py-10 band-dark">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center text-gold mb-6">Our Focus Areas</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="bg-white/10 p-6 rounded shadow hover:shadow-lg">
+        <div class="text-4xl mb-4 text-gold"><i class="fas fa-utensils"></i></div>
+        <h3 class="text-xl font-semibold mb-2">Food Security</h3>
+        <p class="text-sm">Meal distribution, nutrition packs, and community kitchens.</p>
+      </div>
+      <div class="bg-white/10 p-6 rounded shadow hover:shadow-lg">
+        <div class="text-4xl mb-4 text-gold"><i class="fas fa-stethoscope"></i></div>
+        <h3 class="text-xl font-semibold mb-2">Health Outreach</h3>
+        <p class="text-sm">Free medical checkups, medicines, and health awareness drives.</p>
+      </div>
+      <div class="bg-white/10 p-6 rounded shadow hover:shadow-lg">
+        <div class="text-4xl mb-4 text-gold"><i class="fas fa-book-open"></i></div>
+        <h3 class="text-xl font-semibold mb-2">Education Support</h3>
+        <p class="text-sm">Scholarships, digital kits, and study centers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Hamburger Menu Toggle
+  document.getElementById('menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+</script>
+<!-- Testimonials -->
+<section id="testimonials" class="section bg-deepnavy text-white">
+  <div class="section-title text-center mb-8">
+    <h2 class="text-3xl font-bold text-gold">Community Voices</h2>
+    <p class="text-gray-300">Stories from people impacted by Sagar Ratan Foundation programs.</p>
+  </div>
+
+  <div class="relative max-w-3xl mx-auto">
+    <!-- Slider Container -->
+    <div class="overflow-hidden" id="testimonial-slider">
+      <div id="tTrack" class="flex transition-transform duration-500 ease-in-out">
+        <!-- 1 -->
+        <div class="t-card p-6 min-w-full bg-white/10 rounded shadow-lg">
+          <p class="quote text-lg italic text-gray-100 mb-4">
+            "When floods damaged our village stock, SRF arrived with cooked meals and dry ration kits within 48 hours.
+            Their volunteers stayed until every family was fed. We now partner with them for nutrition days."
+          </p>
+          <div class="t-author flex items-center gap-4">
+            <div class="t-author-img w-14 h-14 rounded-full overflow-hidden">
+              <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3b600dbf-33d0-420a-81a5-ab883cf64c5a.png" alt="Rajesh Mehra" class="w-full h-full object-cover">
+            </div>
+            <div class="t-author-info">
+              <h4 class="font-semibold text-gold">Rajesh Mehra</h4>
+              <span class="text-sm text-gray-300">Community Volunteer</span>
+            </div>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="t-card p-6 min-w-full bg-white/10 rounded shadow-lg">
+          <p class="quote text-lg italic text-gray-100 mb-4">
+            "My neighborhood had no access to basic health checks. SRF’s free medical camp screened over 400 people in one day — 
+            including my mother, who received early diabetes care. Their work truly serves the public good."
+          </p>
+          <div class="t-author flex items-center gap-4">
+            <div class="t-author-img w-14 h-14 rounded-full overflow-hidden">
+              <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9a7c3677-41d4-4367-89f9-55540d10b7e1.png" alt="Sunita Patel" class="w-full h-full object-cover">
+            </div>
+            <div class="t-author-info">
+              <h4 class="font-semibold text-gold">Sunita Patel</h4>
+              <span class="text-sm text-gray-300">Beneficiary Family Member</span>
+            </div>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="t-card p-6 min-w-full bg-white/10 rounded shadow-lg">
+          <p class="quote text-lg italic text-gray-100 mb-4">
+            "I started as a student volunteer and helped run SRF’s digital learning sessions. Seeing children get their first tablet lesson
+            made me commit full-time. This NGO is transparent, fast, and focused on impact."
+          </p>
+          <div class="t-author flex items-center gap-4">
+            <div class="t-author-img w-14 h-14 rounded-full overflow-hidden">
+              <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b84d6486-fac1-49aa-aada-ad877ca3a47a.png" alt="Amit Singh" class="w-full h-full object-cover">
+            </div>
+            <div class="t-author-info">
+              <h4 class="font-semibold text-gold">Amit Singh</h4>
+              <span class="text-sm text-gray-300">SRF Volunteer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrows -->
+    <button id="prevTestimonial" class="absolute top-1/2 -translate-y-1/2 left-2 bg-gold text-deepnavy px-3 py-2 rounded-full shadow hover:bg-yellow-400">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button id="nextTestimonial" class="absolute top-1/2 -translate-y-1/2 right-2 bg-gold text-deepnavy px-3 py-2 rounded-full shadow hover:bg-yellow-400">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+</section>
+
+<!-- Donate Section -->
+<section id="donate" class="py-10 band-dark text-center">
+  <h2 class="text-3xl font-bold text-gold mb-4">Support Our Mission</h2>
+  <p class="text-gray-300 max-w-xl mx-auto mb-6">Your contribution helps feed families, host health camps, and keep children learning.</p>
+  <div class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+    <div class="bg-white/10 p-6 rounded shadow">
+      <h3 class="text-xl font-semibold text-gold mb-2">Sponsor Meals</h3>
+      <p class="text-sm mb-4">Provide cooked food for a community kitchen day.</p>
+      <a href="donate.html" class="btn-accent">₹2,500</a>
+    </div>
+    <div class="bg-white/10 p-6 rounded shadow">
+      <h3 class="text-xl font-semibold text-gold mb-2">Health Camp</h3>
+      <p class="text-sm mb-4">Help cover medicines & testing supplies.</p>
+      <a href="donate.html" class="btn-accent">₹5,000</a>
+    </div>
+    <div class="bg-white/10 p-6 rounded shadow">
+      <h3 class="text-xl font-semibold text-gold mb-2">Education Kit</h3>
+      <p class="text-sm mb-4">Fund tablets & learning kits for children.</p>
+      <a href="donate.html" class="btn-accent">₹3,000</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-deepnavy text-gray-300 pt-12 pb-8">
+  <div class="container mx-auto px-4 grid md:grid-cols-3 gap-6">
+    <!-- Foundation -->
+    <div>
+      <h3 class="text-lg font-bold text-gold mb-4">Sagar Ratan Foundation</h3>
+      <p class="text-sm mb-4">Creating hope and opportunity through community-led action across India.</p>
+      <div class="flex space-x-3">
+        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-deepnavy transition"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-deepnavy transition"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-deepnavy transition"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-deepnavy transition"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-bold text-gold mb-4">Quick Links</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="index.html" class="hover:text-gold">Home</a></li>
+        <li><a href="about.html" class="hover:text-gold">About Us</a></li>
+        <li><a href="index.html#projects" class="hover:text-gold">Our Programs</a></li>
+        <li><a href="donate.html" class="hover:text-gold">Donate</a></li>
+        <li><a href="volunteer.html" class="hover:text-gold">Volunteer</a></li>
+        <li><a href="contact.html" class="hover:text-gold">Contact</a></li>
+      </ul>
+    </div>
+    <!-- Support -->
+    <div>
+      <h3 class="text-lg font-bold text-gold mb-4">Support</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#" onclick="openDialog('termsDialog')" class="hover:text-gold">Terms of Service</a></li>
+        <li><a href="#" onclick="openDialog('privacyDialog')" class="hover:text-gold">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10 mt-6 pt-4 text-center text-xs text-gray-400">
+    © 2025 Sagar Ratan Foundation. All Rights Reserved.
+  </div>
+</footer>
+
+<!-- Dialog Boxes -->
+<div id="termsDialog" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-deepnavy text-white max-w-lg w-11/12 p-6 rounded-lg shadow-lg border-t-4 border-gold relative">
+    <h2 class="text-2xl font-bold text-gold mb-3">Terms of Service</h2>
+    <p class="text-sm text-gray-300 mb-4">
+      By using our website, you agree to our commitment to transparency, data protection, and community-driven initiatives.
+    </p>
+    <button onclick="closeDialog('termsDialog')" class="bg-gold text-deepnavy px-4 py-2 rounded hover:bg-yellow-400">Close</button>
+  </div>
+</div>
+
+<div id="privacyDialog" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-deepnavy text-white max-w-lg w-11/12 p-6 rounded-lg shadow-lg border-t-4 border-gold relative">
+    <h2 class="text-2xl font-bold text-gold mb-3">Privacy Policy</h2>
+    <p class="text-sm text-gray-300 mb-4">
+      We respect your privacy. Any personal information you share is securely stored and used only to improve our services.
+    </p>
+    <button onclick="closeDialog('privacyDialog')" class="bg-gold text-deepnavy px-4 py-2 rounded hover:bg-yellow-400">Close</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  // Testimonials Auto Scroll
+  const testimonialTrack = document.getElementById('testimonial-track');
+  const testimonials = testimonialTrack.children;
+  let index = 0;
+  function showTestimonial(i) {
+    index = (i + testimonials.length) % testimonials.length;
+    testimonialTrack.style.transform = `translateX(-${index * 100}%)`;
+  }
+  document.getElementById('next-testimonial').addEventListener('click', () => showTestimonial(index + 1));
+  document.getElementById('prev-testimonial').addEventListener('click', () => showTestimonial(index - 1));
+  setInterval(() => showTestimonial(index + 1), 5000); // Auto-slide
+
+  // Dialog
+  function openDialog(id) {
+    document.getElementById(id).classList.remove('hidden');
+    document.getElementById(id).classList.add('flex');
+  }
+  function closeDialog(id) {
+    document.getElementById(id).classList.add('hidden');
+    document.getElementById(id).classList.remove('flex');
+  }
+</script>
+
+</body>
+</html>
