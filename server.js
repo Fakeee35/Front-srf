@@ -239,6 +239,10 @@ app.listen(PORT, () => {
 });
 // === AUTO BACKUP TO MONGODB EVERY 5 MINUTES ===
 
+const donationsFile = DONATIONS_FILE;
+const volunteerFile = VOLUNTEER_FILE;
+const contactFile = CONTACT_FILE;
+const newsletterFile = NEWSLETTER_FILE;
 function arraysEqual(a, b) {
   return JSON.stringify(a) === JSON.stringify(b);
 }
