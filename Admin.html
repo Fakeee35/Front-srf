@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Admin Dashboard - Sagar Ratan Foundation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Tailwind --><script src="https://cdn.tailwindcss.com"></script><script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#6A5ACD',  /* Royal Purple */
+          gold: '#FFD700',     /* Gold */
+          darkbg: '#1B1B2F',
+          darkbg2: '#16213E'
+        }
+      }
+    }
+  }
+</script><!-- Font Awesome --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /><style>
+  html,body{max-width:100%;overflow-x:hidden;}
+  body{background:#1B1B2F;color:#e5e7eb;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  .band-dark{background:linear-gradient(135deg,#1B1B2F,#16213E);}
+  .card-bg{background:rgba(255,255,255,0.05);}
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;}
+  th,td{white-space:nowrap;padding:.5rem .75rem;font-size:.875rem;}
+  th{text-align:left;font-weight:600;color:#FFD700;border-bottom:1px solid rgba(255,255,255,.15);}
+  td{border-bottom:1px solid rgba(255,255,255,.05);}
+  .scroll-slim::-webkit-scrollbar{height:6px;}
+  .scroll-slim::-webkit-scrollbar-thumb{background:#6A5ACD;border-radius:3px;}
+  .hidden{display:none !important;}
+</style></head>
+<body><!-- Navbar --><nav class="band-dark text-white p-4 shadow-md border-t-4" style="border-color:#6A5ACD;">
+  <div class="container mx-auto flex justify-between items-center px-2 sm:px-4">
+    <a href="index.html" class="text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-white to-[#FFD700] drop-shadow-md">
+      Sagar Ratan Foundation
+    </a>
+    <ul class="hidden sm:flex gap-4 text-sm text-[#F7F7F7]">
+      <li><a href="index.html" class="hover:text-[#FFD700]">Home</a></li>
+      <li><a href="about.html" class="hover:text-[#FFD700]">About</a></li>
+      <li><a href="donate.html" class="hover:text-[#FFD700]">Donate</a></li>
+      <li><a href="volunteer.html" class="hover:text-[#FFD700]">Volunteer</a></li>
+      <li><a href="contact.html" class="hover:text-[#FFD700]">Contact</a></li>
+      <li><span class="text-[#FFD700] font-bold">Admin</span></li>
+    </ul>
+    <button id="menu-btn" class="sm:hidden text-gold text-2xl focus:outline-none" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <ul id="mobile-menu" class="sm:hidden hidden flex-col gap-2 mt-2 px-4 pb-3 text-sm text-[#F7F7F7]">
+    <li><a href="index.html" class="block py-1 hover:text-[#FFD700]">Home</a></li>
+    <li><a href="about.html" class="block py-1 hover:text-[#FFD700]">About</a></li>
+    <li><a href="donate.html" class="block py-1 hover:text-[#FFD700]">Donate</a></li>
+    <li><a href="volunteer.html" class="block py-1 hover:text-[#FFD700]">Volunteer</a></li>
+    <li><a href="contact.html" class="block py-1 hover:text-[#FFD700]">Contact</a></li>
+    <li><span class="block py-1 text-[#FFD700] font-bold">Admin</span></li>
+  </ul>
+</nav><!-- Login Section --><section id="login-section" class="min-h-[60vh] flex items-center justify-center p-4">
+  <div class="max-w-sm w-full card-bg p-6 rounded-lg shadow-lg border-t-4" style="border-color:#FFD700;">
+    <h2 class="text-2xl font-bold text-center text-gold mb-4">Admin Login</h2>
+    <label class="block text-sm mb-1" for="admin-id">Admin ID</label>
+    <input type="text" id="admin-id" class="w-full mb-3 px-3 py-2 rounded bg-white/10 border border-white/20 focus:bg-white/20 focus:outline-none" placeholder="Enter Admin ID" />
+    <label class="block text-sm mb-1" for="admin-pass">Password</label>
+    <input type="password" id="admin-pass" class="w-full mb-4 px-3 py-2 rounded bg-white/10 border border-white/20 focus:bg-white/20 focus:outline-none" placeholder="Enter Password" />
+    <button id="login-btn" class="w-full bg-gold text-darkbg font-bold py-2 rounded hover:bg-yellow-300 transition">Login</button>
+    <p id="login-msg" class="mt-2 text-center text-sm text-red-400"></p>
+  </div>
+</section>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-10 mt-20">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-wrap lg:flex-nowrap -mx-4 justify-between">
+      <!-- Foundation -->
+      <div class="w-full lg:w-1/4 px-4 mb-8 lg:mb-0">
+        <h3 class="text-xl font-bold text-gold mb-4">Sagar Ratan Foundation</h3>
+        <p class="text-sm mb-4">Creating hope and opportunity through community-led action across India.</p>
+        <div class="flex space-x-3">
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-gray-800 transition"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-gray-800 transition"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-gray-800 transition"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold hover:text-gray-800 transition"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <!-- Quick Links + Support -->
+      <div class="w-full lg:w-2/4 px-4 mb-8 lg:mb-0">
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-bold text-gold mb-4">Quick Links</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="index.html" class="hover:text-gold">Home</a></li>
+              <li><a href="about.html" class="hover:text-gold">About Us</a></li>
+              <li><a href="index.html#projects" class="hover:text-gold">Our Programs</a></li>
+              <li><a href="donate.html" class="hover:text-gold">Donate</a></li>
+              <li><a href="volunteer.html" class="hover:text-gold">Volunteer</a></li>
+              <li><a href="contact.html" class="hover:text-gold">Contact Us</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gold mb-4">Support</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#" onclick="openDialog('termsDialog')" class="hover:text-gold">Terms of Service</a></li>
+              <li><a href="#" onclick="openDialog('privacyDialog')" class="hover:text-gold">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Newsletter -->
+      <div class="w-full lg:w-1/4 px-4 mb-0">
+        <h3 class="text-lg font-bold text-gold mb-4">Newsletter</h3>
+        <form id="newsletterForm" class="space-y-2">
+          <input type="email" id="nlemail" required placeholder="Your Email Address" class="w-full px-3 py-2 rounded bg-white/10 border border-white/20 text-sm focus:bg-white/20 focus:outline-none">
+          <button type="submit" class="w-full bg-gold text-darkbg font-semibold py-2 rounded hover:bg-yellow-400">Subscribe</button>
+        </form>
+        <p id="nlmsg" class="text-sm mt-2"></p>
+      </div>
+    </div>
+    <div class="text-center text-xs mt-6 border-t border-white/10 pt-4">
+      © 2025 Sagar Ratan Foundation. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- Dialog Boxes -->
+<div id="termsDialog" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-darkbg text-white max-w-lg w-11/12 p-6 rounded-lg shadow-lg border-t-4 border-gold relative">
+    <h2 class="text-2xl font-bold text-gold mb-3">Terms of Service</h2>
+    <p class="text-sm text-gray-300 mb-4">By using the Sagar Ratan Foundation website, you agree to responsible use of information...</p>
+    <button onclick="closeDialog('termsDialog')" class="bg-gold text-darkbg font-semibold px-4 py-2 rounded hover:bg-yellow-400">Close</button>
+  </div>
+</div>
+
+<div id="privacyDialog" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-darkbg text-white max-w-lg w-11/12 p-6 rounded-lg shadow-lg border-t-4 border-gold relative">
+    <h2 class="text-2xl font-bold text-gold mb-3">Privacy Policy</h2>
+    <p class="text-sm text-gray-300 mb-4">We collect only the information you submit (donations, forms, subscriptions)...</p>
+    <button onclick="closeDialog('privacyDialog')" class="bg-gold text-darkbg font-semibold px-4 py-2 rounded hover:bg-yellow-400">Close</button>
+  </div>
+</div>
+
+<!-- Admin JS (fully working) -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (menuBtn) {
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  }
+
+  function openDialog(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('hidden');
+    el.classList.add('flex');
+  }
+  window.openDialog = openDialog;
+
+  function closeDialog(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('hidden');
+    el.classList.remove('flex');
+  }
+  window.closeDialog = closeDialog;
+
+  const loginBtn = document.getElementById('login-btn');
+  const loginMsg = document.getElementById('login-msg');
+  const loginSection = document.getElementById('login-section');
+  const adminPanel = document.getElementById('admin-panel');
+
+  if (loginBtn) {
+    loginBtn.addEventListener('click', adminLogin);
+  }
+
+  async function adminLogin() {
+    const id = document.getElementById('admin-id').value;
+    const password = document.getElementById('admin-pass').value;
+
+    loginMsg.textContent = '';
+    try {
+      const res = await fetch('https://backend-rk6x.onrender.com/api/admin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, password })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        loginMsg.textContent = data.message || 'Invalid credentials.';
+        return;
+      }
+
+      loginSection.classList.add('hidden');
+      adminPanel.classList.remove('hidden');
+      loadAdminData();
+    } catch (err) {
+      loginMsg.textContent = 'Login error. Please check your internet.';
+    }
+  }
+
+  async function loadAdminData() {
+    try {
+      const res = await fetch('https://backend-rk6x.onrender.com/api/admin-data');
+      const data = await res.json();
+      populateDonations(data.donations || []);
+      populateVolunteers(data.volunteers || []);
+      populateContacts(data.contacts || []);
+      populateNewsletter(data.newsletters || []);
+    } catch (err) {
+      console.error('Failed to load admin data:', err);
+    }
+  }
+
+  function fmtDate(iso) {
+    const d = new Date(iso);
+    return isNaN(d) ? iso : d.toLocaleString();
+  }
+
+  function esc(str) {
+    if (str == null) return '';
+    return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+  }
+
+  function populateDonations(rows) {
+    const tbody = document.getElementById('donationsBody');
+    tbody.innerHTML = '';
+    rows.forEach((r,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${esc(r.name)}</td>
+        <td>${esc(r.email)}</td>
+        <td>${esc(r.phone)}</td>
+        <td>${esc(r.parcelName || '')}</td>
+        <td>${esc(r.parcelCount ?? '')}</td>
+        <td>${esc(r.totalAmount ?? '')}</td>
+        <td>${esc(fmtDate(r.date))}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function populateVolunteers(rows) {
+    const tbody = document.getElementById('volunteersBody');
+    tbody.innerHTML = '';
+    rows.forEach((r,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${esc(r.name)}</td>
+        <td>${esc(r.email)}</td>
+        <td>${esc(r.phone)}</td>
+        <td>${esc(r.help || '')}</td>
+        <td>${esc(r.message || '')}</td>
+        <td>${esc(fmtDate(r.date))}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function populateContacts(rows) {
+    const tbody = document.getElementById('contactsBody');
+    tbody.innerHTML = '';
+    rows.forEach((r,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${esc(r.name)}</td>
+        <td>${esc(r.email)}</td>
+        <td>${esc(r.message)}</td>
+        <td>${esc(fmtDate(r.date))}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function populateNewsletter(rows) {
+    const tbody = document.getElementById('newsletterBody');
+    tbody.innerHTML = '';
+    rows.forEach((r,i)=>{
+      const email = typeof r === 'string' ? r : (r.email || JSON.stringify(r));
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${esc(email)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Newsletter form
+  const nlForm = document.getElementById('newsletterForm');
+  if (nlForm) {
+    nlForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const emailInput = document.getElementById('nlemail');
+      const msg = document.getElementById('nlmsg');
+      try {
+        const res = await fetch('https://backend-rk6x.onrender.com/api/newsletter', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({ email: emailInput.value })
+        });
+        const data = await res.json();
+        msg.textContent = data.message || 'Submitted.';
+        if (res.ok) emailInput.value = '';
+      } catch (err) {
+        msg.textContent = 'Error.';
+      }
+    });
+  }
+});
+</script>
+</body>
+</html>
