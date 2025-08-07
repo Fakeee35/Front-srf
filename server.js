@@ -16,6 +16,41 @@ import fs from "fs";
 import path from "path";
 import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
+import mongoose from "mongoose";
+
+// Connect to MongoDB
+mongoose.connect("mongodb+srv://Srf44334:1233@cluster0.gzdgh6a.mongodb.net/srf-backup", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log("✅ MongoDB connected for periodic backup"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
+
+// Define schemas
+const donationSchema = new mongoose.Schema({
+  name: String, email: String, phone: String,
+  serviceDate: String, parcelName: String, parcelCount: String,
+  date: String
+}, { timestamps: true });
+
+const volunteerSchema = new mongoose.Schema({
+  name: String, email: String, phone: String,
+  help: String, message: String, date: String
+}, { timestamps: true });
+
+const contactSchema = new mongoose.Schema({
+  name: String, email: String, message: String,
+  date: String
+}, { timestamps: true });
+
+const newsletterSchema = new mongoose.Schema({
+  email: String, date: String
+}, { timestamps: true });
+
+// Define models
+const Donation = mongoose.model("Donation", donationSchema);
+const Volunteer = mongoose.model("Volunteer", volunteerSchema);
+const Contact = mongoose.model("Contact", contactSchema);
+const Newsletter = mongoose.model("Newsletter", newsletterSchema);
 
 // ----------------------------------------------------------
 // Path setup (ESM-friendly __dirname)
@@ -192,3 +227,48 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Data stored in: ${DATA_DIR}`);
 });
+// === AUTO BACKUP TO MONGODB EVERY 5 MINUTES ===
+
+function arraysEqual(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
+async function syncToMongoDB() {
+  try {
+    // Donations
+    const donationsRaw = readJSON(donationsFile);
+    for (const entry of donationsRaw) {
+      const exists = await Donation.findOne({ email: entry.email, date: entry.date });
+      if (!exists) await Donation.create(entry);
+    }
+
+    // Volunteers
+    const volunteersRaw = readJSON(volunteerFile);
+    for (const entry of volunteersRaw) {
+      const exists = await Volunteer.findOne({ email: entry.email, date: entry.date });
+      if (!exists) await Volunteer.create(entry);
+    }
+
+    // Contacts
+    const contactsRaw = readJSON(contactFile);
+    for (const entry of contactsRaw) {
+      const exists = await Contact.findOne({ email: entry.email, date: entry.date });
+      if (!exists) await Contact.create(entry);
+    }
+
+    // Newsletters
+    const newsletterRaw = readJSON(newsletterFile);
+    for (const entry of newsletterRaw) {
+      const email = typeof entry === "string" ? entry : entry.email;
+      const exists = await Newsletter.findOne({ email });
+      if (!exists) await Newsletter.create({ email, date: new Date().toISOString() });
+    }
+
+    console.log("✅ Synced local JSON files to MongoDB.");
+  } catch (err) {
+    console.error("❌ Error syncing to MongoDB:", err);
+  }
+}
+
+// Run every 5 minutes
+setInterval(syncToMongoDB, 5 * 60 * 1000);
