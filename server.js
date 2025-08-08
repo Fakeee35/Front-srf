@@ -285,4 +285,4 @@ async function syncToMongoDB() {
 }
 
 // Run every 5 minutes
-setInterval(syncToMongoDB, 60 * 1000);
+setInterval(syncToMongoDB, 5 * 60 * 1000);
